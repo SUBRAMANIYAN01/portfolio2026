@@ -1227,7 +1227,8 @@ ul {
     }
 
     .btn--sm.btn--gold {
-        display: none;
+        padding: 4px 12px;
+        font-size: 1rem;
     }
 
     .nav__toggle {
