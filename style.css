@@ -1227,8 +1227,23 @@ ul {
     }
 
     .btn--sm.btn--gold {
-        padding: 4px 12px;
-        font-size: 1rem;
+        padding: 6px 12px;
+        font-size: 0.9rem;
+        display: flex !important;
+        margin-left: auto;
+    }
+
+    .hero-card__actions {
+        flex-wrap: nowrap;
+        gap: 8px;
+    }
+
+    .hero-card__actions .btn {
+        padding: 10px 8px;
+        font-size: 0.85rem;
+        flex: 1;
+        justify-content: center;
+        text-align: center;
     }
 
     .nav__toggle {
