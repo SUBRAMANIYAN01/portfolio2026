@@ -408,6 +408,23 @@
        9. PROJECT VIDEOS — Play on hover & Watch Video Button
        ═══════════════════════════════════════════════════════ */
 
+    /** Lazy load video metadata (thumbnails) as they approach the viewport. */
+    function initLazyVideos() {
+        const observer = new IntersectionObserver((entries, obs) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    const video = entry.target;
+                    if (video.getAttribute('preload') === 'none') {
+                        video.setAttribute('preload', 'metadata');
+                    }
+                    obs.unobserve(video);
+                }
+            });
+        }, { rootMargin: '300px' });
+
+        $$('video[preload="none"]').forEach((video) => observer.observe(video));
+    }
+
     /** Set up video hover-play, click-fullscreen, and "Watch Video" buttons. */
     function initVideoControls() {
         // Play project video on card hover
@@ -468,6 +485,7 @@
         initCounters();
         initCardGlow();
         initTilt();
+        initLazyVideos();
         initVideoControls();
     });
 })();
