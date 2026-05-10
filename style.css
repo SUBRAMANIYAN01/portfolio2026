@@ -1239,8 +1239,8 @@ ul {
     }
 
     .hero-card__actions .btn {
-        padding: 10px 8px;
-        font-size: 0.85rem;
+        padding: 8px 6px;
+        font-size: 0.75rem;
         flex: 1;
         justify-content: center;
         text-align: center;
