@@ -1,0 +1,1530 @@
+/* Fonts loaded via <link> in index.html — no @import needed */
+
+/* ═══════════════════════════════════════════════════════════
+   CRAZY ANIME DESIGN TOKENS (SANDAL THEME)
+   ═══════════════════════════════════════════════════════════ */
+:root {
+    --bg-main: #f1eed9;
+    --card-bg: #FFFFFF;
+
+    --neon-pink: #e7bd5f;
+    --neon-cyan: #8a6e50;
+    --neon-yellow: #fae7a6;
+
+    --text-primary: #1c1107;
+    --text-secondary: #371c07;
+    --text-muted: #564946;
+
+    --border-color: #371c07;
+    --border-width: 3px;
+
+    --shadow-color: #564436;
+    --shadow-cyan: #66574a;
+    --shadow-yellow: #af9772;
+
+    --font-heading: 'Teko', sans-serif;
+    --font-mono: 'Space Mono', monospace;
+    --font-body: 'Inter', sans-serif;
+
+    --ease-glitch: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    --dur: 0.2s;
+
+    --radius: 0px;
+    /* SHARP CORNERS ONLY */
+
+    --gap: 20px;
+    --page-pad: 24px;
+    --page-max: 1280px;
+
+    /* Aliases for legacy/experience section references */
+    --gold: var(--neon-pink);
+    --font-manga: var(--font-heading);
+    --text-dark: var(--text-primary);
+    --bg-dark: var(--text-primary);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   RESET & HALFTONE BG
+   ═══════════════════════════════════════════════════════════ */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+}
+
+body {
+    font-family: var(--font-body);
+    background-color: var(--bg-main);
+    background-image: radial-gradient(rgba(0, 0, 0, 0.15) 1.5px, transparent 1.5px);
+    background-size: 24px 24px;
+    color: var(--text-primary);
+    line-height: 1.65;
+    overflow-x: hidden;
+    min-height: 100vh;
+}
+
+img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+button {
+    border: none;
+    background: none;
+    cursor: pointer;
+    font: inherit;
+    color: inherit;
+}
+
+ul {
+    list-style: none;
+}
+
+::selection {
+    background: var(--neon-yellow);
+    color: #000;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   Manga Speed Lines Canvas
+   ═══════════════════════════════════════════════════════════ */
+.bg-canvas {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.15;
+}
+
+/* Background aesthetic KANJI text */
+.ambient-kanji {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 30vw;
+    font-weight: 900;
+    color: rgba(0, 0, 0, 0.04);
+    z-index: 0;
+    pointer-events: none;
+    white-space: nowrap;
+    user-select: none;
+    font-family: 'Inter', sans-serif;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   NAVIGATION
+   ═══════════════════════════════════════════════════════════ */
+.nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    padding: 20px 0;
+    transition: all var(--dur) var(--ease-glitch);
+}
+
+.nav--scrolled {
+    padding: 10px 0;
+    background: rgba(255, 255, 255, 0.95);
+    border-bottom: var(--border-width) solid var(--neon-pink);
+    box-shadow: 0 4px 0 var(--neon-cyan);
+}
+
+.nav__inner {
+    max-width: var(--page-max);
+    margin: 0 auto;
+    padding: 0 var(--page-pad);
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.nav__logo {
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-primary);
+    position: relative;
+    margin-right: auto;
+    text-shadow: 2px 2px 0 var(--neon-pink);
+}
+
+.nav__logo:hover {
+    color: var(--neon-cyan);
+    text-shadow: -2px 2px 0 var(--neon-pink), 2px -2px 0 var(--bg-main);
+}
+
+.nav__compass {
+    display: none;
+}
+
+/* hide compass for anime theme */
+
+.nav__links {
+    display: flex;
+    gap: 24px;
+}
+
+.nav__link {
+    font-family: var(--font-heading);
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-primary);
+    position: relative;
+    transition: all 0.2s;
+}
+
+.nav__link::before {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: var(--neon-yellow);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.3s;
+}
+
+.nav__link:hover::before,
+.nav__link--active::before {
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+.mobile-menu {
+    position: fixed;
+    inset: 0;
+    z-index: 99;
+    background: var(--bg-main);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all var(--dur);
+}
+
+.mobile-menu--open {
+    opacity: 1;
+    visibility: visible;
+}
+
+.mobile-menu a {
+    display: block;
+    font-family: var(--font-heading);
+    font-size: 3rem;
+    color: var(--text-primary);
+    text-transform: uppercase;
+    text-shadow: 4px 4px 0 var(--neon-cyan);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   BUTTONS (Slanted Cyberpunk Style)
+   ═══════════════════════════════════════════════════════════ */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 32px;
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.1s;
+    clip-path: polygon(10px 0, 100% 0, calc(100% - 10px) 100%, 0 100%);
+    position: relative;
+}
+
+.btn::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border: 2px solid var(--border-color);
+    clip-path: polygon(10px 0, 100% 0, calc(100% - 10px) 100%, 0 100%);
+}
+
+.btn--sm {
+    padding: 6px 20px;
+    font-size: 1.2rem;
+}
+
+.btn--gold {
+    background: var(--neon-yellow);
+    color: #000;
+    box-shadow: 6px 6px 0 var(--neon-pink);
+    clip-path: none;
+    border: var(--border-width) solid #000;
+}
+
+.btn--gold::after {
+    display: none;
+}
+
+.btn--gold:hover {
+    transform: translate(-4px, -4px);
+    box-shadow: 10px 10px 0 var(--neon-cyan);
+    background: var(--text-primary);
+}
+
+.btn--outline {
+    background: var(--card-bg);
+    color: var(--neon-cyan);
+    border: var(--border-width) solid var(--neon-cyan);
+    clip-path: none;
+    box-shadow: 4px 4px 0 var(--neon-pink);
+}
+
+.btn--outline::after {
+    display: none;
+}
+
+.btn--outline:hover {
+    background: var(--neon-cyan);
+    color: #000;
+    box-shadow: 6px 6px 0 var(--neon-yellow);
+    transform: translate(-2px, -2px);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   TAGS
+   ═══════════════════════════════════════════════════════════ */
+.tag {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    background: var(--neon-pink);
+    color: #000;
+    border: 2px solid #000;
+    box-shadow: 2px 2px 0 var(--neon-yellow);
+}
+
+.tag--gold {
+    background: var(--neon-cyan);
+    color: #000;
+    box-shadow: 2px 2px 0 var(--neon-pink);
+}
+
+.tag--mono {
+    background: #000;
+    color: #fff;
+    border: 2px solid #000;
+    box-shadow: none;
+}
+
+.text-gold {
+    color: var(--neon-pink);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   BENTO PAGE & GRID SYSTEM
+   ═══════════════════════════════════════════════════════════ */
+.bento-page {
+    position: relative;
+    z-index: 1;
+    max-width: var(--page-max);
+    margin: 0 auto;
+    padding: 100px var(--page-pad) 40px;
+}
+
+.bento-page section {
+    margin-top: 100px;
+}
+
+/* Section labels - Warning Tape Style */
+.bento-section-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 32px;
+    background: var(--neon-yellow);
+    padding: 4px 20px;
+    border: var(--border-width) solid #000;
+    box-shadow: 6px 6px 0 var(--neon-pink);
+    transform: rotate(-1deg);
+}
+
+.section-num {
+    font-family: var(--font-heading);
+    font-size: 1.8rem;
+    color: #000;
+}
+
+.section-line {
+    display: none;
+}
+
+.section-name {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    color: #000;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   BENTO CARD — Comic Manga Panels
+   ═══════════════════════════════════════════════════════════ */
+.bento-card {
+    background: var(--card-bg);
+    border: var(--border-width) solid var(--border-color);
+    box-shadow: 8px 8px 0 var(--shadow-color);
+    transition: all 0.15s var(--ease-glitch);
+    overflow: hidden;
+    position: relative;
+}
+
+.bento-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(45deg,
+            rgba(255, 255, 255, 0.03),
+            rgba(255, 255, 255, 0.03) 2px,
+            transparent 2px,
+            transparent 8px);
+    pointer-events: none;
+}
+
+.bento-card:hover {
+    transform: translate(-4px, -4px);
+    box-shadow: 12px 12px 0 var(--shadow-cyan);
+}
+
+/* Cycle shadow colors for different cards */
+.bento-card:nth-child(2n) {
+    --shadow-color: var(--neon-cyan);
+}
+
+.bento-card:nth-child(2n):hover {
+    --shadow-cyan: var(--neon-pink);
+}
+
+.bento-card:nth-child(3n) {
+    --shadow-color: var(--neon-yellow);
+}
+
+.bento-card:nth-child(3n):hover {
+    --shadow-cyan: var(--neon-cyan);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   HERO GRID
+   ═══════════════════════════════════════════════════════════ */
+.bento-grid--hero {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: 1fr auto;
+    gap: var(--gap);
+}
+
+.bento-card--hero {
+    grid-row: 1 / 3;
+    padding: 24px 32px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    max-height: 480px;
+}
+
+/* Anime giant kanji in hero card */
+.hero-card__bg::after {
+    content: '起動';
+    /* Startup/Boot */
+    position: absolute;
+    bottom: -20px;
+    right: -20px;
+    font-size: 15rem;
+    font-weight: 900;
+    color: rgba(0, 0, 0, 0.05);
+    /* White theme */
+    line-height: 1;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.hero-card__content {
+    position: relative;
+    z-index: 1;
+}
+
+.hero-card__title {
+    font-family: var(--font-heading);
+    font-size: clamp(1.5rem, 3.5vw, 3.5rem);
+    font-weight: 700;
+    line-height: 0.9;
+    text-transform: uppercase;
+    margin: 12px 0 8px;
+    text-shadow: 4px 4px 0 var(--neon-cyan);
+}
+
+.hero-card__sub {
+    font-family: var(--font-mono);
+    color: var(--neon-pink);
+    font-size: 0.95rem;
+    background: #fff;
+    display: inline-block;
+    padding: 4px 12px;
+    border: 2px solid var(--neon-pink);
+    margin-bottom: 16px;
+}
+
+.hero-card__actions {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.bento-card--profile {
+    padding: 0;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.profile-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}
+
+.profile-photo {
+    width: 50%;
+    aspect-ratio: 0.7/ 1;
+    height: auto;
+    object-fit: cover;
+    object-position: top center;
+    margin: auto;
+    filter: grayscale(100%);
+}
+
+.profile-card__details {
+    padding: 16px 28px 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.profile-card__name {
+    font-family: var(--font-heading);
+    font-size: 2.5rem;
+    text-transform: uppercase;
+    line-height: 1;
+}
+
+.profile-card__role {
+    font-family: var(--font-mono);
+    color: var(--neon-pink);
+    font-size: 0.9rem;
+    font-weight: bold;
+    margin-bottom: 24px;
+}
+
+.profile-card__stats {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+}
+
+.stat__num {
+    font-family: var(--font-heading);
+    font-size: 2.5rem;
+    color: var(--neon-pink);
+    line-height: 1;
+}
+
+.stat__label {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    background: #fff;
+    color: #000;
+    padding: 2px 6px;
+    border: 1px solid #000;
+}
+
+.stat__divider {
+    width: 3px;
+    height: 30px;
+    background: #000;
+}
+
+.bento-card--status {
+    grid-column: 2;
+    padding: 20px 24px;
+    border-left: 8px solid var(--neon-cyan);
+}
+
+.status-text {
+    font-family: var(--font-mono);
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+.status-dot {
+    width: 12px;
+    height: 12px;
+    background: var(--neon-cyan);
+    box-shadow: 0 0 10px var(--neon-cyan);
+    animation: blink 0.5s step-end infinite;
+}
+
+@keyframes blink {
+    50% {
+        opacity: 0;
+    }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   ABOUT GRID
+   ═══════════════════════════════════════════════════════════ */
+.bento-grid--about {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: auto auto;
+    gap: var(--gap);
+}
+
+.bento-card--logbook {
+    grid-row: 1 / 3;
+}
+
+.logbook__header {
+    background: var(--border-color);
+    color: #fff;
+    padding: 12px 24px;
+    border-bottom: var(--border-width) solid #000;
+    text-transform: uppercase;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logbook__header .tag--mono {
+    color: #fff;
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.logbook__entry {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    color: #fff;
+    letter-spacing: 2px;
+}
+
+.logbook__body {
+    padding: 28px 24px;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.logbook__body p {
+    margin-bottom: 20px;
+}
+
+.logbook__body strong {
+    color: var(--neon-pink);
+    background: #f0f0f0;
+    padding: 2px 6px;
+}
+
+.logbook__footer {
+    padding: 14px 24px;
+    border-top: var(--border-width) dashed var(--border-color);
+    text-align: right;
+}
+
+.logbook__footer span {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    color: var(--neon-cyan);
+}
+
+.bento-card--education,
+.bento-card--interests {
+    padding: 24px;
+}
+
+.card-title {
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    text-transform: uppercase;
+    border-bottom: 4px solid var(--neon-pink);
+    display: inline-block;
+    margin-bottom: 24px;
+}
+
+.edu-item {
+    padding-bottom: 16px;
+    border-bottom: 2px dashed #444;
+    margin-bottom: 16px;
+}
+
+.edu-item:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.edu-item__degree {
+    font-family: var(--font-mono);
+    font-size: 1rem;
+    font-weight: bold;
+    color: var(--neon-cyan);
+}
+
+.edu-item__school {
+    font-size: 0.9rem;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+.edu-item__score {
+    display: inline-block;
+    background: var(--neon-yellow);
+    color: #000;
+    padding: 4px 8px;
+    font-weight: bold;
+    margin-top: 8px;
+}
+
+.interest-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.interest-tag {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    font-weight: bold;
+    padding: 8px 16px;
+    border: 2px solid var(--border-color);
+    background: transparent;
+    box-shadow: 4px 4px 0 #fff;
+    text-transform: uppercase;
+}
+
+.interest-tag:hover {
+    background: var(--neon-pink);
+    box-shadow: 6px 6px 0 var(--neon-cyan);
+    transform: translate(-2px, -2px);
+    border-color: var(--neon-pink);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   PROJECTS GRID
+   ═══════════════════════════════════════════════════════════ */
+.bento-grid--projects {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--gap);
+}
+
+.bento-card--project-lg {
+    grid-column: 1 / 3;
+}
+
+.bento-card--project-lg .project__img {
+    aspect-ratio: 2.4 / 1;
+}
+
+.bento-card--project .project__img {
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+    position: relative;
+    border-bottom: var(--border-width) solid var(--border-color);
+    filter: contrast(1.2) saturate(1.5);
+    /* Anime pop filter */
+}
+
+.bento-card--project .project__img img,
+.bento-card--project .project__img video,
+.bento-card--project .project__img iframe {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border: none;
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.bento-card--project:hover .project__img img {
+    transform: scale(1.1) rotate(2deg);
+}
+
+.bento-card--project:hover .project__img video {
+    transform: scale(1.05);
+}
+
+.project__img-overlay {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    z-index: 2;
+}
+
+.project__info {
+    padding: 24px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.project__engine {
+    font-family: var(--font-mono);
+    font-weight: bold;
+    color: var(--neon-cyan);
+    margin-bottom: 8px;
+}
+
+.project__title {
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    text-transform: uppercase;
+    line-height: 1;
+    margin-bottom: 12px;
+}
+
+.project__desc {
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+}
+
+.project__stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.project__stack span {
+    background: #fff;
+    color: #000;
+    font-family: var(--font-mono);
+    font-weight: bold;
+    padding: 4px 8px;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+}
+
+.project__links {
+    display: flex;
+    gap: 12px;
+    margin-top: auto;
+    padding-top: 24px;
+}
+
+.project__links .btn {
+    flex: 1;
+    text-align: center;
+    font-size: 0.9rem;
+    padding: 10px 16px;
+    border-width: 2px;
+}
+
+.bento-card--more {
+    background: repeating-linear-gradient(45deg, #fff, #fff 10px, #f4f4f4 10px, #f4f4f4 20px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 32px;
+}
+
+.more-count {
+    font-family: var(--font-heading);
+    font-size: 6rem;
+    line-height: 0.8;
+    color: var(--neon-pink);
+    text-shadow: 4px 4px 0 var(--neon-cyan);
+}
+
+.more-label {
+    font-family: var(--font-mono);
+    font-size: 1.2rem;
+    background: #000;
+    color: #fff;
+    padding: 4px 12px;
+    transform: rotate(-5deg);
+    margin-top: 16px;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   SKILLS GRID
+   ═══════════════════════════════════════════════════════════ */
+.bento-grid--skills {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--gap);
+}
+
+.bento-card--skill-icons {
+    grid-column: 1 / 3;
+}
+
+.bento-card--skill-group,
+.bento-card--skill-icons,
+.bento-card--dsa {
+    padding: 32px;
+}
+
+.skill-bars {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.skill-bar {
+    position: relative;
+}
+
+.skill-bar::before {
+    content: attr(data-skill);
+    display: block;
+    font-family: var(--font-mono);
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+}
+
+.skill-bar::after {
+    content: attr(data-level) '%';
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    color: var(--neon-pink);
+}
+
+.skill-bar .bar-track {
+    height: 12px;
+    background: #fff;
+    border: 2px solid #000;
+    transform: skewX(-15deg);
+}
+
+.skill-bar .bar-fill {
+    height: 100%;
+    width: 0;
+    background: var(--neon-cyan);
+    border-right: 2px solid #000;
+    transition: width 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.skill-bar .bar-fill.animated {
+    width: var(--level);
+}
+
+.skill-icon-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+}
+
+.skill-icon {
+    aspect-ratio: 1;
+    border: 3px solid #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+    transition: all 0.1s;
+    position: relative;
+}
+
+.skill-icon:hover {
+    background: var(--neon-yellow);
+    color: #000;
+    transform: scale(1.1) rotate(5deg);
+    box-shadow: 4px 4px 0 var(--neon-cyan);
+}
+
+.skill-icon::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: -30px;
+    background: #000;
+    color: #fff;
+    font-family: var(--font-mono);
+    font-weight: bold;
+    padding: 4px 8px;
+    font-size: 0.7rem;
+    opacity: 0;
+    white-space: nowrap;
+    pointer-events: none;
+    z-index: 10;
+}
+
+.skill-icon:hover::after {
+    opacity: 1;
+}
+
+.dsa-icon {
+    font-size: 4rem;
+    margin-bottom: 16px;
+    text-shadow: 4px 4px 0 var(--neon-pink);
+}
+
+.card-title-sm {
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    line-height: 1;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+}
+
+.card-sub {
+    font-family: var(--font-mono);
+    font-weight: bold;
+    background: var(--neon-cyan);
+    color: #000;
+    padding: 4px 8px;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   CONTACT GRID
+   ═══════════════════════════════════════════════════════════ */
+.bento-grid--contact {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--gap);
+}
+
+.bento-card--contact-info {
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+}
+
+.bento-card--socials {
+    padding: 32px;
+}
+
+.bento-card--contact-info svg {
+    margin-bottom: 12px;
+}
+
+.contact-label {
+    display: block;
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    color: var(--neon-cyan);
+    margin-bottom: 4px;
+}
+
+.contact-value {
+    display: block;
+    font-family: var(--font-mono);
+    font-weight: bold;
+    font-size: 1.1rem;
+    word-break: break-all;
+}
+
+.contact-value:hover {
+    color: var(--neon-cyan);
+    text-decoration: underline;
+}
+
+.social-links {
+    display: flex;
+    gap: 16px;
+}
+
+.social-link {
+    width: 60px;
+    height: 60px;
+    border: 3px solid #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    transition: all 0.1s;
+    background: #fff;
+}
+
+.social-link:hover {
+    background: var(--neon-cyan);
+    color: #000;
+    transform: translate(-4px, -4px);
+    box-shadow: 6px 6px 0 var(--neon-pink);
+}
+
+.bento-card--footer {
+    grid-column: 1 / -1;
+    padding: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #fff;
+    border-top: 3px solid #000;
+}
+
+.bento-card--footer span {
+    font-family: var(--font-mono);
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+.back-top {
+    background: var(--neon-yellow);
+    color: #000;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    border: 3px solid #000;
+}
+
+.back-top:hover {
+    background: var(--neon-pink);
+    box-shadow: 4px 4px 0 #000;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   ANIME PROPS
+   ═══════════════════════════════════════════════════════════ */
+.nav-luffy-prop {
+    height: 36px;
+    object-fit: contain;
+    mix-blend-mode: multiply;
+    margin-right: 8px;
+    filter: drop-shadow(2px 2px 0 var(--neon-cyan));
+    transition: transform 0.2s;
+}
+
+.nav__logo {
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+}
+
+.nav__logo:hover .nav-luffy-prop {
+    transform: scale(1.1) rotate(-5deg);
+}
+
+.hero-portfolio-img {
+    display: block;
+    width: 40%;
+    min-width: 180px;
+    max-width: 250px;
+    object-fit: contain;
+    mix-blend-mode: multiply;
+    margin-bottom: 12px;
+    filter: drop-shadow(4px 4px 0px var(--neon-pink));
+    animation: propFloat 4s ease-in-out infinite;
+}
+
+.prop-logbook {
+    position: absolute;
+    height: 70px;
+    bottom: -10px;
+    right: -80px;
+    object-fit: contain;
+    mix-blend-mode: multiply;
+    filter: drop-shadow(4px 4px 0 var(--neon-cyan));
+    animation: propFloat 4s ease-in-out infinite;
+    pointer-events: none;
+    z-index: 10;
+}
+
+@keyframes propFloat {
+
+    0%,
+    100% {
+        transform: translateY(0) rotate(-1deg);
+    }
+
+    50% {
+        transform: translateY(-10px) rotate(1deg);
+    }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   ANIMATIONS
+   ═══════════════════════════════════════════════════════════ */
+[data-reveal] {
+    opacity: 0;
+    transform: scale(0.9) translateY(40px) skewX(10deg);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+[data-reveal].revealed {
+    opacity: 1;
+    transform: scale(1) translateY(0) skewX(0);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   RESPONSIVE
+   ═══════════════════════════════════════════════════════════ */
+@media (max-width: 1024px) {
+    .bento-grid--hero {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .bento-card--hero {
+        grid-column: 1 / -1;
+        grid-row: auto;
+        min-height: 400px;
+    }
+
+    .bento-card--location,
+    .bento-card--status {
+        grid-column: auto;
+    }
+
+    .bento-grid--projects,
+    .bento-grid--skills {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .bento-card--project-lg,
+    .bento-card--skill-icons {
+        grid-column: 1 / -1;
+    }
+
+    .bento-grid--contact {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .nav__links {
+        display: none;
+    }
+
+    .btn--sm.btn--gold {
+        display: none;
+    }
+
+    .nav__toggle {
+        display: flex;
+    }
+
+    .nav__toggle span {
+        background: #fff;
+        height: 3px;
+    }
+
+    .bento-grid--hero,
+    .bento-grid--about,
+    .bento-grid--projects,
+    .bento-grid--skills,
+    .bento-grid--contact {
+        grid-template-columns: 1fr;
+    }
+
+    .bento-card--hero {
+        padding: 40px 24px;
+    }
+
+    .hero-card__bg::after {
+        font-size: 8rem;
+    }
+
+    .hero-card__title {
+        font-size: 3.5rem;
+    }
+
+    .bento-card--project-lg .project__img {
+        aspect-ratio: 16 / 10;
+    }
+
+    .skill-icon-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+/* ═══════════════════════════════════════════════════
+   3D GALLERY — THE FORGE
+   ═══════════════════════════════════════════════════ */
+.bento-grid--gallery {
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: 300px;
+}
+
+.bento-card--gallery {
+    grid-column: span 2;
+}
+
+.bento-card--gallery-paired,
+.bento-card--gallery-vid {
+    grid-column: span 2;
+}
+
+
+.bento-card--gallery-paired::before,
+.bento-card--gallery-vid::before {
+    display: none;
+}
+
+.gallery__content--placeholder {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: repeating-linear-gradient(45deg,
+            rgba(0, 0, 0, 0.02),
+            rgba(0, 0, 0, 0.02) 10px,
+            rgba(0, 0, 0, 0.05) 10px,
+            rgba(0, 0, 0, 0.05) 20px);
+    border: 2px dashed rgba(60, 40, 30, 0.2);
+    padding: 2rem;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.bento-card--gallery:hover .gallery__content--placeholder {
+    background: rgba(220, 180, 100, 0.1);
+    border-color: var(--gold);
+}
+
+.gallery__icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    opacity: 0.5;
+}
+
+.gallery__label {
+    font-family: var(--font-manga);
+    font-size: 1.2rem;
+    color: var(--text-dark);
+    text-transform: uppercase;
+}
+
+.gallery__sub {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-top: 0.5rem;
+}
+
+.gallery__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+}
+
+.bento-card--gallery:hover .gallery__img {
+    transform: scale(1.05);
+}
+
+.bento-card--gallery-paired {
+    display: flex !important;
+    align-items: stretch;
+}
+
+.bento-card--gallery-paired .gallery__img {
+    width: 50% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    flex: none !important;
+}
+
+
+
+/* ═══════════════════════════════════════════════════
+   EXPERIENCE — THE VOYAGE
+   ═══════════════════════════════════════════════════ */
+.bento-grid--experience {
+    grid-template-columns: 1fr;
+}
+
+.bento-card--exp {
+    padding: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.exp-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid var(--border-color);
+}
+
+.exp-header__company {
+    font-family: var(--font-manga);
+    font-size: 1.4rem;
+    letter-spacing: 2px;
+    color: var(--text-dark);
+}
+
+.exp-header__date {
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    color: var(--gold);
+    background: var(--bg-dark);
+    padding: 4px 12px;
+}
+
+.exp-body__role {
+    font-family: var(--font-manga);
+    font-size: 1.8rem;
+    color: var(--text-dark);
+    margin-bottom: 1rem;
+}
+
+.exp-body__desc {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: var(--text-muted);
+    max-width: 800px;
+}
+
+.exp-body__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    margin-top: 1.5rem;
+}
+
+@media (max-width: 992px) {
+    .bento-grid--gallery {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 576px) {
+    .bento-grid--gallery {
+        grid-template-columns: 1fr;
+    }
+
+    .bento-card--gallery-lg,
+    .bento-card--gallery-vid {
+        grid-column: span 1;
+        grid-row: span 1;
+    }
+
+    .exp-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   UTILITY CLASSES — Replace inline styles
+   ═══════════════════════════════════════════════════════════ */
+.skill-icon__img {
+    width: 60%;
+    height: 60%;
+    object-fit: contain;
+}
+
+.skill-icon__img--inverted {
+    filter: invert(1);
+}
+
+.gallery-video {
+    width: 50%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    border: none;
+}
+
+.gallery-video--border-right {
+    border-right: 2px solid var(--border-color);
+}
+
+.gallery-img--contain {
+    object-fit: contain;
+    background: white;
+}
+
+.gallery-img--border-right {
+    border-right: 2px solid var(--border-color);
+}
+
+.gallery-card--white-bg {
+    background: white;
+}
+
+.gallery-video-container {
+    padding: 0;
+    overflow: hidden;
+    display: flex;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   ACCESSIBILITY — Reduced Motion
+   ═══════════════════════════════════════════════════════════ */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+
+    .bg-canvas {
+        display: none;
+    }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   PRINT STYLES
+   ═══════════════════════════════════════════════════════════ */
+@media print {
+    .bg-canvas,
+    .ambient-kanji,
+    .nav,
+    .mobile-menu,
+    .back-top,
+    video {
+        display: none !important;
+    }
+
+    body {
+        background: white;
+        background-image: none;
+        color: #000;
+    }
+
+    .bento-card {
+        box-shadow: none;
+        border: 1px solid #ccc;
+        break-inside: avoid;
+    }
+}
